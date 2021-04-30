@@ -20,7 +20,7 @@ class BookListPage extends StatelessWidget {
         body: Consumer<BookListModel>(
           builder: (context, model, child) {
             final books = model.books;
-            final listTiles = books.map(
+            final listTiles = books.map(//リストであるbooksの中身をほげほげ型からListTile型に変更
               (book) => ListTile(
                 title: Text(book.title),
               ),

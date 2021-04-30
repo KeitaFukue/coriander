@@ -9,7 +9,7 @@ class BookListModel extends ChangeNotifier{
     final documents =
           await FirebaseFirestore.instance.collection('books').get();
     print(documents);
-    final bookss = documents.docs.map((documents) => Book(documents['title'])).toList();//リストの中身をほげほげ型からBook型にしてる
+    final bookss = documents.docs.map((doc) => Book(doc['title'])).toList();//リストの中身をほげほげ型からBook型にしてる
     this.books = bookss;
     notifyListeners();
   }
