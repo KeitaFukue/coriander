@@ -32,17 +32,22 @@ class BookListPage extends StatelessWidget {
         );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AddBookPage(),
-                fullscreenDialog: true,//画面遷移のモーションが変わる
-              ),
+        floatingActionButton: Consumer<BookListModel>(
+            builder: (context, model, child) {
+            return FloatingActionButton(
+              onPressed: () async {//本一覧ページから本追加ページに遷移
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddBookPage(),
+                    fullscreenDialog: true,//画面遷移のモーションが変わる
+                  ),
+                );
+                model.fetchBooks();//本追加ページから本一覧ページに戻ってきた時に、firestoreの値を自動取得
+              },
+              child: const Icon(Icons.add),
             );
-          },
-          child: const Icon(Icons.add),
+            }
         ),
       ),
     );

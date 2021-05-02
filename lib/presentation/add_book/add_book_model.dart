@@ -14,6 +14,7 @@ class AddBookModel extends ChangeNotifier{
     await documents.add(
       {
         'title': bookTitle,
+        'createAt':Timestamp.now(),
       }
     );
   }
