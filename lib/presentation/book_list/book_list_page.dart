@@ -22,8 +22,20 @@ class BookListPage extends StatelessWidget {
           builder: (context, model, child) {
             final books = model.books;
             final listTiles = books.map(//リストであるbooksの中身をほげほげ型からListTile型に変更
-              (book) => ListTile(
+              (book) => ListTile(//BookListModelに入っているListであるbooksの各要素がbook
                 title: Text(book.title),
+                trailing: IconButton(
+                  icon: Icon(Icons.create),
+                  onPressed: ()async{//本一覧ページから本編集ページに遷移
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddBookPage(book: book,),//BookListModelに入っているListであるbooksの各要素がbook
+                        fullscreenDialog: true,//画面遷移のモーションが変わる
+                      ),
+                    );
+                  },
+                ),
               ),
             ).toList();
 

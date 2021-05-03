@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coriander_app/domain/Book.dart';
 import 'package:coriander_app/presentation/add_book/add_book_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
 class AddBookPage extends StatelessWidget {
+  AddBookPage({this.book});//コンストラクタ定義、引数を{}で囲むと、引数があってもなくてもいい
+
+  final Book book; //プロパティ定義
+
   @override
   Widget build(BuildContext context) {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final bool isUpdate = (book != null);//bookの、中身がない時true、中身がない時false
 
     return ChangeNotifierProvider<AddBookModel>(
       create: (_) => AddBookModel(),
 
       child: Scaffold(
         appBar: AppBar(
-          title: Text('本追加'),
+          title: Text(isUpdate ? '本を編集' : '本追加'),
         ),
 
         body: Consumer<AddBookModel>(
@@ -72,7 +77,8 @@ class AddBookPage extends StatelessWidget {
                       }
 
                       },
-                    child: Text('本を追加')),
+                    child: Text(isUpdate ? '本を編集' :'本を追加'),
+                ),
               ],
             );
           },
