@@ -21,7 +21,7 @@ class BookListPage extends StatelessWidget {
         body: Consumer<BookListModel>(
           builder: (context, model, child) {
             final books = model.books;
-            final listTiles = books.map(//リストであるbooksの中身をほげほげ型からListTile型に変更
+            final listTiles = books.map(//リストであるbooksの中身をBook型からListTile型に変更
               (book) => ListTile(//BookListModelに入っているListであるbooksの各要素がbook
                 title: Text(book.title),
                 trailing: IconButton(
@@ -34,6 +34,7 @@ class BookListPage extends StatelessWidget {
                         fullscreenDialog: true,//画面遷移のモーションが変わる
                       ),
                     );
+                    model.fetchBooks();//本編集ページから本一覧ページに戻ってきた時に、firestoreの値を自動取得
                   },
                 ),
               ),

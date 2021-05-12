@@ -13,6 +13,11 @@ class AddBookPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isUpdate = (book != null);//bookの、中身がない時true、中身がない時false
+    final textEditingController = TextEditingController();
+
+    if(isUpdate) {
+      textEditingController.text = book.title;
+    }
 
     return ChangeNotifierProvider<AddBookModel>(
       create: (_) => AddBookModel(),
@@ -27,23 +32,29 @@ class AddBookPage extends StatelessWidget {
             return Column(
               children: [
                 TextField(
+                  controller: textEditingController,//フォームにデフォルトの値を入れるためのcontroller
                   onChanged: (text){
                     //TODO テキストフィールドの内容をmodelのプロパティに
                     model.bookTitle = text;
                   },
                 ),
                 TextButton(
+                    child: Text(isUpdate ? '更新する' :'本を追加'),
                     onPressed: () async{
                       try{
-                        //TODO modelのメソッドを起動して、firestoreにデータ追加
-                        await model.addBookToFirebase();
+                        if(isUpdate){
+                          await model.updateBook(book);
+                        }else{
+                          //TODO modelのメソッドを起動して、firestoreにデータ追加
+                          await model.addBookToFirebase();
+                        }
 
                         //TODO firestoreにデータ追加したことを、dialogで知らせる
                         await showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('本を追加しました！'),
+                              title: Text(isUpdate ? '本を更新しました！' :'本を追加しました！'),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('OK'),
@@ -77,7 +88,6 @@ class AddBookPage extends StatelessWidget {
                       }
 
                       },
-                    child: Text(isUpdate ? '本を編集' :'本を追加'),
                 ),
               ],
             );

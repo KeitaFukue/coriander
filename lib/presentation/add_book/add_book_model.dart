@@ -10,7 +10,7 @@ class AddBookModel extends ChangeNotifier{
       throw('タイトルを入力してください');
     }
 
-    final documents =  FirebaseFirestore.instance.collection('books');
+    final documents =  FirebaseFirestore.instance.collection('books');//コレクションbooksを取得
     await documents.add(
       {
         'title': bookTitle,
@@ -19,4 +19,17 @@ class AddBookModel extends ChangeNotifier{
     );
   }
 
+  Future updateBook(Book book) async{
+    if (bookTitle.isEmpty){
+      throw('タイトルを入力してください');
+    }
+
+    final document =  FirebaseFirestore.instance.collection('books').doc(book.docmentID);//コレクションbooksの中のドキュメントを1つ取得
+    await document.update(
+        {
+          'title': bookTitle,
+          'updateAt':Timestamp.now(),
+        }
+    );
+  }
 }
