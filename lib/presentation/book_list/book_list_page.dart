@@ -23,7 +23,9 @@ class BookListPage extends StatelessWidget {
             final books = model.books;
             final listTiles = books.map(//リストであるbooksの中身をBook型からListTile型に変更
               (book) => ListTile(//BookListModelに入っているListであるbooksの各要素がbook
+
                 title: Text(book.title),
+
                 trailing: IconButton(
                   icon: Icon(Icons.create),
                   onPressed: ()async{//本一覧ページから本編集ページに遷移
@@ -37,6 +39,27 @@ class BookListPage extends StatelessWidget {
                     model.fetchBooks();//本編集ページから本一覧ページに戻ってきた時に、firestoreの値を自動取得
                   },
                 ),
+
+                onLongPress: ()async{
+                  await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('削除しますか？'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('OK'),
+                          onPressed: () {
+                            model.deleteBook(book);
+                            Navigator.of(context).pop();//Dialogを消して本追加のページに戻る
+                            model.fetchBooks();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                  );
+                },
               ),
             ).toList();
 
