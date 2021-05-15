@@ -1,4 +1,5 @@
 import 'package:coriander_app/presentation/book_list/book_list_page.dart';
+import 'package:coriander_app/presentation/sign_up/sign_up_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class Main extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      theme: ThemeData.dark(),
       home: ChangeNotifierProvider(
         create: (_) => MainModel(),
 
@@ -65,6 +67,18 @@ class Main extends StatelessWidget{
                         );
                       },
                     ),
+
+                    TextButton(
+                      child:Text('アカウント作成'),
+                      onPressed: (){
+                        model.changeTempText();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUpPage()),
+                        );
+                      },
+                    ),
+
                   ],
                 )
               );

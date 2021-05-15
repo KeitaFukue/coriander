@@ -16,7 +16,7 @@ dependencies:
 
   # Add the dependencies for any other Firebase products you want to use in your app
   # For example, to use Firebase Authentication and Cloud Firestore
-  firebase_auth: ^1.0.0
+  firebase_auth: ^1.1.4
   cloud_firestore: ^1.0.0
 
   cupertino_icons: ^1.0.0
