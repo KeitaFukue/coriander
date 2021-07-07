@@ -1,4 +1,5 @@
 import 'package:coriander_app/presentation/book_list/book_list_page.dart';
+import 'package:coriander_app/presentation/login/login_page.dart';
 import 'package:coriander_app/presentation/sign_up/sign_up_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,16 @@ class Main extends StatelessWidget{
                       },
                     ),
 
+                    TextButton(
+                      child:Text('ログイン'),
+                      onPressed: (){
+                        model.changeTempText();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LogInPage()),
+                        );
+                      },
+                    ),
                   ],
                 )
               );
