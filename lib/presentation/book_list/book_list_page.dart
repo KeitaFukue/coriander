@@ -23,9 +23,8 @@ class BookListPage extends StatelessWidget {
             final books = model.books;
             final listTiles = books.map(//リストであるbooksの中身をBook型からListTile型に変更
               (book) => ListTile(//BookListModelに入っているListであるbooksの各要素がbook
-
                 title: Text(book.title),
-
+                leading: Image.network('https://scontent-sjc3-1.xx.fbcdn.net/v/t1.18169-9/28783133_737177806487142_6109043676809966699_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=e3f864&_nc_ohc=MCr233pRxZcAX_-RarT&_nc_ht=scontent-sjc3-1.xx&oh=e76a9be861a4de498b99fcfda53ef135&oe=60EE2282'),
                 trailing: IconButton(
                   icon: Icon(Icons.create),
                   onPressed: ()async{//本一覧ページから本編集ページに遷移

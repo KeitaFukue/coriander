@@ -4,10 +4,12 @@ class Book{
   //コンストラクタ定義
   Book(QueryDocumentSnapshot doc){
     title = doc['title'];
-    docmentID = doc.id;
+    documentID = doc.id;
+//    ImageURL = doc['ImageURL'];
   }
 
   //プロパティ定義
   String title;
-  String docmentID;
+  String documentID;
+  String ImageURL;
 }

@@ -59,7 +59,7 @@ class Main extends StatelessWidget{
                       ),
                 ),
                     TextButton(
-                      child:Text('ボタン'),
+                      child:Text('本一覧'),
                       onPressed: (){
                         model.changeTempText();
                         Navigator.push(

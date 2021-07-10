@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coriander_app/domain/Book.dart';
 import 'package:coriander_app/presentation/add_book/add_book_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +32,19 @@ class AddBookPage extends StatelessWidget {
           builder: (context, model, child) {
             return Column(
               children: [
+                SizedBox(
+                  height: 160,
+                  width: 100,
+                  child: InkWell(
+                    onTap: ()async{
+                      //TODO カメラロールを開く
+                      await model.showImagePicker();
+                    },
+                    child: model.imageFile != null
+                    ?Image.file(model.imageFile)
+                    :Container(color: Colors.blue,),
+                  ),
+                ),
                 TextField(
                   controller: textEditingController,//フォームにデフォルトの値を入れるためのcontroller
                   onChanged: (text){
