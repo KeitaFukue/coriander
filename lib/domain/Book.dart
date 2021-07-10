@@ -5,11 +5,11 @@ class Book{
   Book(QueryDocumentSnapshot doc){
     title = doc['title'];
     documentID = doc.id;
-//    ImageURL = doc['ImageURL'];
+    imageURL = doc['imageURL'];//book_list_pageで呼び出す時に，要素(imageURL)を持っていないドキュメント(doc)を参照するとエラーになることに留意する
   }
 
   //プロパティ定義
   String title;
   String documentID;
-  String ImageURL;
+  String imageURL;
 }
