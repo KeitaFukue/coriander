@@ -33,80 +33,94 @@ class AddBookPage extends StatelessWidget {
             return Column(
               children: [
                 SizedBox(
-                  height: 160,
-                  width: 100,
+                  height: 130,
+                  width: 160,
                   child: InkWell(
                     onTap: ()async{
                       //TODO カメラロールを開く
                       await model.showImagePicker();
                     },
-                    child: model.imageFile != null
-                    ?Image.file(model.imageFile)
-                    :Container(color: Colors.blue,),
-                  ),
-                ),
+                    child:((){ //即時関数
+                      if(model.imageFile != null){
+                        return Image.file(model.imageFile);
+                      }else if(isUpdate){
+                        if(book.imageURL != null) {
+                          return Image.network(book.imageURL);
+                        }else{
+                          return Container(
+                            margin: EdgeInsets.only(top: 30),
+                            color: Colors.grey,
+                          );
+                        }
+                      }else {
+                        return Container(
+                          margin: EdgeInsets.only(top: 30),
+                          color: Colors.grey,
+                        );
+                      }
+                    })(),
+            ),
+            ),
                 TextField(
                   controller: textEditingController,//フォームにデフォルトの値を入れるためのcontroller
                   onChanged: (text){
                     //TODO テキストフィールドの内容をmodelのプロパティに
                     model.bookTitle = text;
-                  },
+                    },
                 ),
                 TextButton(
-                    child: Text(isUpdate ? '更新する' :'本を追加'),
-                    onPressed: () async{
-                      try{
-                        if(isUpdate){
-                          await model.updateBook(book);
-                        }else{
-                          //TODO modelのメソッドを起動して、firestoreにデータ追加
-                          await model.addBookToFirebase();
-                        }
-
-                        //TODO firestoreにデータ追加したことを、dialogで知らせる
-                        await showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(isUpdate ? '本を更新しました！' :'本を追加しました！'),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();//Dialogを消して本追加のページに戻る
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        Navigator.of(context).pop();//本一覧のページに戻る
-                      }catch(e){
-                        //TODO 例外処理を伝える
-                        showDialog<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(e.toString()),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('OK'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                  child: Text(isUpdate ? '更新する' :'本を追加'),
+                  onPressed: () async{
+                    try{
+                      if(isUpdate){
+                        await model.updateBook(book);
+                      }else{
+                        //TODO modelのメソッドを起動して、firestoreにデータ追加
+                        await model.addBookToFirebase();
                       }
-
-                      },
+                      //TODO firestoreにデータ追加したことを、dialogで知らせる
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(isUpdate ? '本を更新しました！' :'本を追加しました！'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();//Dialogを消して本追加のページに戻る
+                                  },
+                              ),
+                            ],
+                          );
+                          },
+                      );
+                      Navigator.of(context).pop();//本一覧のページに戻る
+                    }catch(e){
+                      //TODO 例外処理を伝える
+                      showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(e.toString()),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('OK'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  },
+                              ),
+                            ],
+                          );
+                          },
+                      );
+                    }
+                    },
                 ),
               ],
             );
-          },
-        ),
+          }
+          ),
       ),
     );
   }

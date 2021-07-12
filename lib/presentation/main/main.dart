@@ -38,13 +38,13 @@ class Main extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: ChangeNotifierProvider(
         create: (_) => MainModel(),
 
         child: Scaffold(
           appBar: AppBar(
-            title: Text('コリアンダー'),
+            title: Text('ブックリスト'),
           ),
 
           body: Consumer<MainModel>(

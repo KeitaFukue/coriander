@@ -26,7 +26,7 @@ class BookListPage extends StatelessWidget {
                 title: Text(book.title),
                 leading: book.imageURL != null
                     ?Image.network(book.imageURL)
-                    :Image.network('https://scontent-sjc3-1.xx.fbcdn.net/v/t1.18169-9/28783133_737177806487142_6109043676809966699_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=e3f864&_nc_ohc=MCr233pRxZcAX_-RarT&_nc_ht=scontent-sjc3-1.xx&oh=e76a9be861a4de498b99fcfda53ef135&oe=60EE2282'),
+                    :Image.network('https://1.bp.blogspot.com/-D2I7Z7-HLGU/Xlyf7OYUi8I/AAAAAAABXq4/jZ0035aDGiE5dP3WiYhlSqhhMgGy8p7zACNcBGAsYHQ/s1600/no_image_square.jpg'),
                 trailing: IconButton(
                   icon: Icon(Icons.create),
                   onPressed: ()async{//本一覧ページから本編集ページに遷移

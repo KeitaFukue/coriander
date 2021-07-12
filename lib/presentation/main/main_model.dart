@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 
 class MainModel extends ChangeNotifier{
-  String tempText = 'zhang jike';
+  String tempText = 'ブックリスト';
 
   void changeTempText(){
-    tempText = 'ma long';
+    tempText = 'Book List';
     notifyListeners();
   }
 }

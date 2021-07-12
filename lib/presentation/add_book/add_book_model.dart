@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 class AddBookModel extends ChangeNotifier{
   String bookTitle = ''; //　''を入れないと中身がnullになり、下記のisEmptyメソッドがNoSuchMethodエラーになる
   File imageFile;
+  String imageURL ;
 
   Future showImagePicker() async{
     final picker = ImagePicker();
@@ -34,6 +35,7 @@ class AddBookModel extends ChangeNotifier{
         'createAt': Timestamp.now(),
       }
     );
+    notifyListeners();
   }
 
   Future updateBook(Book book) async{
@@ -52,6 +54,7 @@ class AddBookModel extends ChangeNotifier{
           'updateAt': Timestamp.now(),
         }
     );
+    notifyListeners();
   }
 
   Future<String> _uploadImage()async{
